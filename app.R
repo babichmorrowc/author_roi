@@ -85,16 +85,16 @@ ui <- pageWithSidebar(
       numericInput("book4_pagereads", "Book 4 page reads", value = 60),
       
       # Input: Enter page count of book 1 ----
-      numericInput("book1_pagecount", "Book 1 page count", value = 60),
+      numericInput("book1_pagecount", "Book 1 page count", value = 400),
       
       # Input: Enter page count of book 2 ----
-      numericInput("book2_pagecount", "Book 2 page count", value = 60),
+      numericInput("book2_pagecount", "Book 2 page count", value = 400),
       
       # Input: Enter page count of book 3 ----
-      numericInput("book3_pagecount", "Book 3 page count", value = 60),
+      numericInput("book3_pagecount", "Book 3 page count", value = 400),
       
       # Input: Enter page count of book 4 ----
-      numericInput("book4_pagecount", "Book 4 page count", value = 60)
+      numericInput("book4_pagecount", "Book 4 page count", value = 400)
     )
     
   ),
@@ -106,7 +106,18 @@ ui <- pageWithSidebar(
     
     h2(textOutput("subcaption")),
     
-    DTOutput('table'),
+    h3("Sales revenue"),
+    
+    DTOutput('salestable'),
+    
+    h3("KU revenue"),
+    
+    DTOutput('kutable')
+    
+    # conditionalPanel(
+    #   condition = "input.ku_estimation == TRUE",
+    #   DTOutput('kutable')
+    # )
     
     # p(textOutput("nonKU_return"))
   )
@@ -132,17 +143,30 @@ server <- function(input, output) {
     subcaptionText()
   })
   
+  
   sales_table <- reactive({
     data.frame("Book" = c("Book 1", "Book 2", "Book 3", "Book 4"),
                "Sales" = c(input$book1_sales, input$book2_sales, input$book3_sales, input$book4_sales),
-               "Price" = c(input$book1_price, input$book2_price, input$book3_price, input$book4_price)) %>% 
-      mutate(Royalty = ifelse(Price >= 2.99, 0.7, 0.2)) %>% 
-      mutate(Revenue = Price * Royalty) %>% 
-      mutate("Sell-through" = ifelse(Book == "Book 1", 1, Sales / input$book1_sales)) %>% 
+               "Price" = c(input$book1_price, input$book2_price, input$book3_price, input$book4_price)) %>%
+      mutate(Royalty = ifelse(Price >= 2.99, 0.7, 0.2)) %>%
+      mutate(Revenue = Price * Royalty) %>%
+      mutate("Sell-through" = ifelse(Book == "Book 1", 1, Sales / input$book1_sales)) %>%
       mutate("Return on conversion" = Revenue * `Sell-through`)
-  })
     
-  output$table = renderDataTable(sales_table())
+  })
+  
+  ku_table <- reactive({
+      data.frame("Book" = c("Book 1", "Book 2", "Book 3", "Book 4"),
+                 "Page Reads" = c(input$book1_pagereads, input$book2_pagereads, input$book3_pagereads, input$book4_pagereads),
+                 "Page Count" = c(input$book1_pagecount, input$book2_pagecount, input$book3_pagecount, input$book4_pagecount)) %>%
+        mutate("Units Read" = Page.Reads / `Page.Count`) %>%
+        mutate("Sell-through" = ifelse(Book == "Book 1", 1, `Units Read` / `Units Read`[Book == "Book 1"])) %>%
+        mutate("KU Revenue" = 0.0044 * `Page.Count` * `Sell-through`)
+    })
+    
+  output$salestable = renderDataTable(sales_table())
+  
+  output$kutable <- renderDataTable(ku_table())
   
   # nonKU_returnText <- reactive({
   #   paste0("For every book 1 sold or downloaded, you earn $", rv$sales_table$`Return on conversion`, " via sales, taking into account both the royalty rate and the percentage sell-through.")
