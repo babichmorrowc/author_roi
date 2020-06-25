@@ -1,0 +1,133 @@
+:root {
+  --background: whitesmoke;
+  --pagedjs-width: 8.5in;
+  --pagedjs-height: 11in;
+  --pagedjs-margin-top: 0.25in;
+  --pagedjs-margin-bottom: 0.25in;
+  --pagedjs-margin-left: 0.5in;
+  --pagedjs-margin-right: 0.5in;
+  --color-paper: white;
+  --color-mbox: rgba(0, 0, 0, 0.2);
+  --running-title-width: 2.5in;
+  --screen-pages-spacing: 5mm;
+}
+
+p, h1, h2, h3 {
+    display: block;
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+strong {
+  color: #153f3b;
+  font-weight: 600;
+}
+
+p {
+line-height: 16px;
+ margin-bottom: 12px;
+}
+
+body {
+  color: #4b4b4b;
+  font-size: 14px;
+  margin: 0;
+  font-family: 'Gill Sans', sans-serif;
+}
+
+.logo {
+  height:24px;
+  margin-bottom: 25px;
+}
+
+
+h1 {
+    color: #3e1d69;
+    font-weight: 600;
+    font-size: 22px;
+    padding-bottom: 8px;
+    font-family: 'Century Gothic';
+}
+
+
+h2 {
+    color: #e9e9e9;
+    font-weight: 300;
+    font-size: 14px;
+    padding-bottom: 6px;
+    padding-top: 4px;
+    font-family: 'Century Gothic', sans-serif;
+}
+
+h3 {
+    color: #3e1d69;
+    font-weight: 600;
+    font-size: 18px;
+    /*padding-bottom: 6px;*/
+    font-family: 'Century Gothic', sans-serif;
+    padding-top: 20px;
+}
+
+h4 {
+    color: #3e1d69;
+    font-weight: 300;
+    font-size: 16px;
+    /*padding-bottom: 6px;*/
+    font-family: 'Century Gothic', sans-serif;
+    padding-top: 4px;
+}
+
+h5 {
+    color: #3e1d69;
+    font-weight: 300;
+    font-size: 14px;
+    /*padding-bottom: 6px;*/
+    font-family: 'Century Gothic', sans-serif;
+    padding-top: 4px;
+}
+
+table {
+  background-color: #ac87dd;
+  margin: 0;
+  width: 100%;
+  border-spacing: 0;
+}
+
+thead {
+  color: #132133;
+  font-size: 14px;
+  font-family: 'Gill Sans', sans-serif;
+  font-weight: 600;
+}
+
+tbody {
+  color: #4474b4;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Big Gill Sans', sans-serif;
+}
+
+th, td {
+  padding: 8px;
+  font-weight: 600;
+}
+
+td, th {
+  border-bottom: 0px;
+  border-left: 0px;
+  border-top: 0px;
+  border-right: 6px solid #fff;
+}
+
+stripe {
+  
+}
+
+hr { 
+  background-color: #3e1d69; 
+}
+
+
+
